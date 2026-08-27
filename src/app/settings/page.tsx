@@ -1,73 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SETTINGS_TABS = ["Account", "Organization", "API Keys", "Integrations"];
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("Account");
+  const [formData, setFormData] = useState({ firstName: 'John', lastName: 'Doe', email: 'john@example.com' });
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/settings').then(res => res.json()).then(data => {
+      if (data.firstName) setFormData(prev => ({ ...prev, ...data }));
+    });
+  }, []);
+
+  const handleSave = async () => {
+    setSaving(true);
+    await fetch('/api/settings', {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    });
+    setSaving(false);
+  };
 
   return (
     <>
-      <nav className="hidden md:flex bg-surface-container-low dark:bg-inverse-surface fixed left-0 top-0 h-full flex-col py-6 px-4 z-40 w-64 border-r border-outline-variant/30">
-        <div className="mb-10 px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-on-primary font-bold">
-              <span className="material-symbols-outlined text-lg">public</span>
-            </div>
-            <div>
-              <h1 className="font-headline-md text-headline-md font-black text-on-surface dark:text-inverse-on-surface">Sentinel</h1>
-              <p className="font-label-sm text-label-sm text-secondary">Publisher Intel</p>
-            </div>
-          </div>
-        </div>
+      
 
-        <div className="flex-1 space-y-2">
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/">
-            <span className="material-symbols-outlined">analytics</span>
-            <span>Intelligence</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/websites">
-            <span className="material-symbols-outlined">language</span>
-            <span>Websites</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/google-news">
-            <span className="material-symbols-outlined">travel_explore</span>
-            <span>Google News</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/competitors">
-            <span className="material-symbols-outlined">compare_arrows</span>
-            <span>Competitors</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/alerts">
-            <span className="material-symbols-outlined">notifications_active</span>
-            <span>Alerts</span>
-          </a>
-        </div>
-      </nav>
-
-      <main className="flex-1 md:ml-64 flex flex-col min-h-screen">
-        <header className="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-8 h-16 sticky top-0 z-30">
-          <div className="flex items-center gap-4 md:hidden">
-            <button className="p-2 text-on-surface">
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-            <span className="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Sentinel</span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-8 h-full">
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/">Dashboard</a>
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/websites">Websites</a>
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/alerts">Alerts</a>
-            <a className="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-body-strong h-full flex items-center mt-0.5" href="/settings">Settings</a>
-          </div>
-
-          <div className="flex items-center gap-4 ml-auto">
-            <button className="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden ml-2 flex-shrink-0">
-              <img alt="User profile" className="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=User&background=random"/>
-            </button>
-          </div>
-        </header>
+      <main className="flex-1 flex flex-col w-full">
+        
 
         <div className="p-4 md:p-8 flex-1 flex flex-col gap-8 max-w-[1440px] mx-auto w-full">
           <div>
@@ -117,22 +79,22 @@ export default function SettingsPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
                           <label className="text-sm font-body-strong text-on-surface">First Name</label>
-                          <input type="text" defaultValue="John" className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
+                          <input type="text" value={formData.firstName} onChange={e => setFormData(p => ({...p, firstName: e.target.value}))} className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
                         </div>
                         <div className="flex flex-col gap-1.5">
                           <label className="text-sm font-body-strong text-on-surface">Last Name</label>
-                          <input type="text" defaultValue="Doe" className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
+                          <input type="text" value={formData.lastName} onChange={e => setFormData(p => ({...p, lastName: e.target.value}))} className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
                         </div>
                       </div>
 
                       <div className="flex flex-col gap-1.5 mt-2">
                         <label className="text-sm font-body-strong text-on-surface">Email Address</label>
-                        <input type="email" defaultValue="john.doe@example.com" className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
+                        <input type="email" value={formData.email} onChange={e => setFormData(p => ({...p, email: e.target.value}))} className="px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full" />
                       </div>
 
                       <div className="mt-4 flex justify-end">
-                        <button className="px-6 py-2 bg-primary text-on-primary rounded-lg font-body-strong text-sm hover:bg-primary/90 transition-colors shadow-sm">
-                          Save Changes
+                        <button onClick={handleSave} disabled={saving} className="px-6 py-2 bg-primary text-on-primary rounded-lg font-body-strong text-sm hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-50">
+                          {saving ? 'Saving...' : 'Save Changes'}
                         </button>
                       </div>
                     </div>

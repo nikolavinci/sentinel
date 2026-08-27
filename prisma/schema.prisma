@@ -19,3 +19,31 @@ model Website {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Alert {
+  id        String   @id @default(cuid())
+  title     String
+  condition String
+  target    String
+  status    String   @default("Active")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Competitor {
+  id        String   @id @default(cuid())
+  domain    String   @unique
+  da        Int      @default(0)
+  traffic   String   @default("0")
+  rank      Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}

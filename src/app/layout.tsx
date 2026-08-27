@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: "Publisher Intel",
 };
 
+import { Sidebar } from "@/components/layout/Sidebar";
+import { Header } from "@/components/layout/Header";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +25,11 @@ export default function RootLayout({
       <body
         className={`bg-background text-on-surface font-body-base min-h-screen flex antialiased`}
       >
-        {children}
+        <Sidebar />
+        <div className="flex-1 md:ml-64 flex flex-col min-h-screen">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

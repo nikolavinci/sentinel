@@ -31,72 +31,10 @@ export default function AlertsPage() {
 
   return (
     <>
-      <nav className="hidden md:flex bg-surface-container-low dark:bg-inverse-surface fixed left-0 top-0 h-full flex-col py-6 px-4 z-40 w-64 border-r border-outline-variant/30">
-        <div className="mb-10 px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-on-primary font-bold">
-              <span className="material-symbols-outlined text-lg">public</span>
-            </div>
-            <div>
-              <h1 className="font-headline-md text-headline-md font-black text-on-surface dark:text-inverse-on-surface">Sentinel</h1>
-              <p className="font-label-sm text-label-sm text-secondary">Publisher Intel</p>
-            </div>
-          </div>
-        </div>
+      
 
-        <div className="flex-1 space-y-2">
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/">
-            <span className="material-symbols-outlined">analytics</span>
-            <span>Intelligence</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/websites">
-            <span className="material-symbols-outlined">language</span>
-            <span>Websites</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/google-news">
-            <span className="material-symbols-outlined">travel_explore</span>
-            <span>Google News</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/competitors">
-            <span className="material-symbols-outlined">compare_arrows</span>
-            <span>Competitors</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-body-strong rounded-xl group transition-all duration-200 ease-in-out" href="/alerts">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>notifications_active</span>
-            <span>Alerts</span>
-          </a>
-        </div>
-
-        <div className="mt-auto pt-6 px-2">
-          <button className="w-full py-3 bg-primary text-on-primary rounded-xl font-body-strong hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
-            <span className="material-symbols-outlined text-sm">add</span>
-            Create Alert
-          </button>
-        </div>
-      </nav>
-
-      <main className="flex-1 md:ml-64 flex flex-col min-h-screen">
-        <header className="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-8 h-16 sticky top-0 z-30">
-          <div className="flex items-center gap-4 md:hidden">
-            <button className="p-2 text-on-surface">
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-            <span className="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">Sentinel</span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-8 h-full">
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/">Dashboard</a>
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/websites">Websites</a>
-            <a className="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-strong h-full flex items-center cursor-pointer" href="/google-news">Google News</a>
-            <a className="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-body-strong h-full flex items-center mt-0.5" href="/alerts">Alerts</a>
-          </div>
-
-          <div className="flex items-center gap-4 ml-auto">
-            <button className="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden ml-2 flex-shrink-0">
-              <img alt="User profile" className="w-full h-full object-cover" src="https://ui-avatars.com/api/?name=User&background=random"/>
-            </button>
-          </div>
-        </header>
+      <main className="flex-1 flex flex-col w-full">
+        
 
         <div className="p-4 md:p-8 flex-1 flex flex-col gap-8 max-w-[1440px] mx-auto w-full">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">

@@ -1,24 +1,18 @@
 "use client";
 
 import { DataTable } from "@/components/tables/DataTable";
-
-const websitesData = [
-  { id: '1', domain: 'shredder.news', da: 32, dr: 28, ss: '1%', traffic: '12K', genre: 'News', articles: 45 },
-  { id: '2', domain: 'theodysseyonline.com', da: 74, dr: 71, ss: '2%', traffic: '450K', genre: 'Lifestyle', articles: 120 },
-  { id: '3', domain: 'nytimesmag.com', da: 92, dr: 90, ss: '1%', traffic: '1.2M', genre: 'News', articles: 350 },
-  { id: '4', domain: 'dailyscanner.com', da: 45, dr: 40, ss: '5%', traffic: '55K', genre: 'News', articles: 78 },
-  { id: '5', domain: 'time.com', da: 93, dr: 94, ss: '1%', traffic: '3.8M', genre: 'News', articles: 512 },
-  { id: '6', domain: 'usatoday.com', da: 94, dr: 93, ss: '1%', traffic: '4.5M', genre: 'News', articles: 890 },
-  { id: '7', domain: 'forbes.com.tr', da: 78, dr: 75, ss: '3%', traffic: '120K', genre: 'Business', articles: 215 },
-  { id: '8', domain: 'africa.businessinsider.com', da: 82, dr: 80, ss: '1%', traffic: '200K', genre: 'Business', articles: 180 },
-  { id: '9', domain: 'entrepreneur.com', da: 91, dr: 90, ss: '2%', traffic: '2.1M', genre: 'Business', articles: 410 },
-  { id: '10', domain: 'slashdot.org', da: 89, dr: 88, ss: '4%', traffic: '850K', genre: 'Tech', articles: 134 },
-];
-
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function WebsitesPage() {
   const router = useRouter();
+  const [websitesData, setWebsitesData] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/websites')
+      .then(res => res.json())
+      .then(data => setWebsitesData(data));
+  }, []);
   
   const columns = [
     { 
